@@ -1,0 +1,4 @@
+Resolution: HD 1920x1080
+DPI: 72
+
+Tile size: 256 px
