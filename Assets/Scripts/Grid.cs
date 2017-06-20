@@ -6,14 +6,20 @@ public class Grid : MonoBehaviour {
 	public GameObject tile;
 
 	GameObject[,] grid;
-	int width = 5;
-	int height = 5;
+	int width = 4;
+	int height = 4;
+
+	int selectedX = 0;
+	int selectedY = 0;
 
 	void Start() {
 		grid = new GameObject[width, height];
 
-		for(int x = 0; x < grid.GetLength(0); x++) {
-			for(int y = 0; y < grid.GetLength(1); y++) {
+		selectedX = Mathf.FloorToInt(width * 0.5f);
+		selectedY = Mathf.FloorToInt(height * 0.5f);
+
+		for (int x = 0; x < grid.GetLength(0); x++) {
+			for (int y = 0; y < grid.GetLength(1); y++) {
 				var t = Instantiate(tile, transform);
 
 				var cartX = x * 2.56f;
@@ -24,14 +30,93 @@ public class Grid : MonoBehaviour {
 				var isoZ = y;
 
 				t.transform.localPosition = new Vector3(isoX, -isoY, 0);
-				t.GetComponent<SpriteRenderer>().color = new Color(0.2f * x, 0.2f * y, 0.2f * x);
+				//t.transform.localPosition = new Vector3(cartX, -cartY, 0);
+				//t.GetComponent<SpriteRenderer>().color = new Color(0.2f * x, 0.2f * y, 0.2f * x);
 				t.GetComponent<SpriteRenderer>().sortingOrder = isoZ;
 				grid[x, y] = t;
+
+				t.transform.Find("text").GetComponent<TextMesh>().text = x + "," + y;
+				t.transform.Find("text").GetComponent<MeshRenderer>().sortingOrder = isoZ;
 			}
 		}
+
+
+		grid[selectedX, selectedY].GetComponent<SpriteRenderer>().color = new Color(0, 1, 0);
 	}
 
 	void Update() {
+		Vector2 map;
+		if (Input.GetButton("Grid Alt")) {
+			map = GetKeyMapDiagonal();
+		}
+		else {
+			map = GetKeyMapSquareCounter();
+		}
+		if (map != Vector2.zero) {
+			grid[selectedX, selectedY].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
+			selectedX += (int)map.x;
+			selectedY += (int)map.y;
+			grid[selectedX, selectedY].GetComponent<SpriteRenderer>().color = new Color(0, 1, 0);
+		}
+	}
 
+	static Vector2 GetKeyMapDiagonal() {
+		if (Input.GetButtonDown("Grid Up")) {
+			Debug.Log("Up");
+			return new Vector2(-1, -1);
+		}
+		if (Input.GetButtonDown("Grid Right")) {
+			Debug.Log("Right");
+			return new Vector2(1, -1);
+		}
+		if (Input.GetButtonDown("Grid Down")) {
+			Debug.Log("Down");
+			return new Vector2(1, 1);
+		}
+		if (Input.GetButtonDown("Grid Left")) {
+			Debug.Log("Left");
+			return new Vector2(-1, 1);
+		}
+		return Vector2.zero;
+	}
+
+	static Vector2 GetKeyMapSquare() {
+		if (Input.GetButtonDown("Grid Up")) {
+			Debug.Log("Up");
+			return new Vector2(0, -1);
+		}
+		if (Input.GetButtonDown("Grid Right")) {
+			Debug.Log("Right");
+			return new Vector2(1, 0);
+		}
+		if (Input.GetButtonDown("Grid Down")) {
+			Debug.Log("Down");
+			return new Vector2(0, 1);
+		}
+		if (Input.GetButtonDown("Grid Left")) {
+			Debug.Log("Left");
+			return new Vector2(-1, 0);
+		}
+		return Vector2.zero;
+	}
+
+	static Vector2 GetKeyMapSquareCounter() {
+		if (Input.GetButtonDown("Grid Up")) {
+			Debug.Log("Up");
+			return new Vector2(-1, 0);
+		}
+		if (Input.GetButtonDown("Grid Right")) {
+			Debug.Log("Right");
+			return new Vector2(0, -1);
+		}
+		if (Input.GetButtonDown("Grid Down")) {
+			Debug.Log("Down");
+			return new Vector2(1, 0);
+		}
+		if (Input.GetButtonDown("Grid Left")) {
+			Debug.Log("Left");
+			return new Vector2(0, 1);
+		}
+		return Vector2.zero;
 	}
 }
