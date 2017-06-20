@@ -21,8 +21,8 @@ public class Grid : MonoBehaviour {
 				var tileObject = Instantiate(tile, transform);
 				var tileScript = tileObject.GetComponent<Tile>();
 
-				var cartX = x * tileScript.width;
-				var cartY = y * tileScript.height;
+				var cartX = (x - (selected.x - 0.5f)) * tileScript.width;
+				var cartY = (y - (selected.y - 0.5f)) * tileScript.height;
 
 				var isoX = (cartX - cartY) * tileScript.widthRatio;
 				var isoY = (cartX + cartY) * tileScript.heightRatio;
