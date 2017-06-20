@@ -49,10 +49,15 @@ public class Grid : MonoBehaviour {
 		else {
 			map = GetKeyMapSquareCounter();
 		}
-		if (map != Vector2.zero) {
+		var next = selected + map;
+
+		if (map != Vector2.zero &&
+			next.x >= 0 && next.x < tiles.GetLength(0) &&
+			next.y >= 0 && next.y < tiles.GetLength(1)) {
 			tiles[(int)selected.x, (int)selected.y].GetComponent<Tile>().Deselect();
-			selected += map;
-			tiles[(int)selected.x, (int)selected.y].GetComponent<Tile>().Select();
+			tiles[(int)next.x, (int)next.y].GetComponent<Tile>().Select();
+			selected = next;
+
 		}
 	}
 
