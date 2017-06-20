@@ -503,6 +503,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 1035947866516616, guid: 5d362def277d2d642876b27cd6e1d103, type: 2}
+  width: 5
+  height: 5
 --- !u!4 &2111479339
 Transform:
   m_ObjectHideFlags: 0

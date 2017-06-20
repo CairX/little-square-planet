@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour {
 	public GameObject tile;
+	public int width = 1;
+	public int height = 1;
 
 	GameObject[,] grid;
-	int width = 4;
-	int height = 4;
 
 	int selectedX = 0;
 	int selectedY = 0;
@@ -30,8 +30,6 @@ public class Grid : MonoBehaviour {
 				var isoZ = y;
 
 				t.transform.localPosition = new Vector3(isoX, -isoY, 0);
-				//t.transform.localPosition = new Vector3(cartX, -cartY, 0);
-				//t.GetComponent<SpriteRenderer>().color = new Color(0.2f * x, 0.2f * y, 0.2f * x);
 				t.GetComponent<SpriteRenderer>().sortingOrder = isoZ;
 				grid[x, y] = t;
 
@@ -39,7 +37,6 @@ public class Grid : MonoBehaviour {
 				t.transform.Find("text").GetComponent<MeshRenderer>().sortingOrder = isoZ;
 			}
 		}
-
 
 		grid[selectedX, selectedY].GetComponent<SpriteRenderer>().color = new Color(0, 1, 0);
 	}
