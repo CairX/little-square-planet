@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4821790290930282}
   - component: {fileID: 212385941178860230}
+  - component: {fileID: 114449571349072898}
   m_Layer: 0
   m_Name: tile
   m_TagString: Untagged
@@ -43,7 +44,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4821790290930282
 Transform:
   m_ObjectHideFlags: 1
@@ -124,6 +125,22 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294901760
+--- !u!114 &114449571349072898
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1035947866516616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e895c7273065940b9f4c63dbae076c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 2.56
+  height: 2.56
+  widthRatio: 0.5
+  heightRatio: 0.25
+  selectedColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!212 &212385941178860230
 SpriteRenderer:
   m_ObjectHideFlags: 1

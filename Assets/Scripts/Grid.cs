@@ -4,41 +4,41 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour {
 	public GameObject tile;
+	[Range(1, 50)]
 	public int width = 1;
+	[Range(1, 50)]
 	public int height = 1;
 
-	GameObject[,] grid;
-
-	int selectedX = 0;
-	int selectedY = 0;
+	Tile[,] tiles;
+	Vector2 selected;
 
 	void Start() {
-		grid = new GameObject[width, height];
+		tiles = new Tile[width, height];
+		selected = new Vector2(Mathf.Floor(width * 0.5f), Mathf.Floor(height * 0.5f));
 
-		selectedX = Mathf.FloorToInt(width * 0.5f);
-		selectedY = Mathf.FloorToInt(height * 0.5f);
+		for (int x = 0; x < tiles.GetLength(0); x++) {
+			for (int y = 0; y < tiles.GetLength(1); y++) {
+				var tileObject = Instantiate(tile, transform);
+				var tileScript = tileObject.GetComponent<Tile>();
 
-		for (int x = 0; x < grid.GetLength(0); x++) {
-			for (int y = 0; y < grid.GetLength(1); y++) {
-				var t = Instantiate(tile, transform);
+				var cartX = x * tileScript.width;
+				var cartY = y * tileScript.height;
 
-				var cartX = x * 2.56f;
-				var cartY = y * 2.56f;
-
-				var isoX = (cartX - cartY) * 0.5f;
-				var isoY = (cartX + cartY) * 0.25f;
+				var isoX = (cartX - cartY) * tileScript.widthRatio;
+				var isoY = (cartX + cartY) * tileScript.heightRatio;
 				var isoZ = y;
 
-				t.transform.localPosition = new Vector3(isoX, -isoY, 0);
-				t.GetComponent<SpriteRenderer>().sortingOrder = isoZ;
-				grid[x, y] = t;
+				tileObject.transform.localPosition = new Vector3(isoX, -isoY, 0);
+				tileObject.GetComponent<SpriteRenderer>().sortingOrder = isoZ;
 
-				t.transform.Find("text").GetComponent<TextMesh>().text = x + "," + y;
-				t.transform.Find("text").GetComponent<MeshRenderer>().sortingOrder = isoZ;
+				tileObject.transform.Find("text").GetComponent<TextMesh>().text = x + "," + y;
+				tileObject.transform.Find("text").GetComponent<MeshRenderer>().sortingOrder = isoZ;
+
+				tiles[x, y] = tileScript;
 			}
 		}
 
-		grid[selectedX, selectedY].GetComponent<SpriteRenderer>().color = new Color(0, 1, 0);
+		tiles[(int)selected.x, (int)selected.y].Select();
 	}
 
 	void Update() {
@@ -50,10 +50,9 @@ public class Grid : MonoBehaviour {
 			map = GetKeyMapSquareCounter();
 		}
 		if (map != Vector2.zero) {
-			grid[selectedX, selectedY].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
-			selectedX += (int)map.x;
-			selectedY += (int)map.y;
-			grid[selectedX, selectedY].GetComponent<SpriteRenderer>().color = new Color(0, 1, 0);
+			tiles[(int)selected.x, (int)selected.y].GetComponent<Tile>().Deselect();
+			selected += map;
+			tiles[(int)selected.x, (int)selected.y].GetComponent<Tile>().Select();
 		}
 	}
 
