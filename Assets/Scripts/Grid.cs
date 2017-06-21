@@ -57,7 +57,6 @@ public class Grid : MonoBehaviour {
 			tiles[(int)selected.x, (int)selected.y].GetComponent<Tile>().Deselect();
 			tiles[(int)next.x, (int)next.y].GetComponent<Tile>().Select();
 			selected = next;
-
 		}
 	}
 
