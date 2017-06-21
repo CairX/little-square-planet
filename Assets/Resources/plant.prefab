@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4226359817344742}
   - component: {fileID: 212027947124852620}
   - component: {fileID: 114990205135631132}
+  - component: {fileID: 114371628763332954}
   m_Layer: 0
   m_Name: plant
   m_TagString: Untagged
@@ -44,7 +45,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4226359817344742
 Transform:
   m_ObjectHideFlags: 1
@@ -125,6 +126,17 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4278190335
+--- !u!114 &114371628763332954
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1297422366150060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40470eb2183a774b86d721a6ea05fe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114990205135631132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -140,7 +152,6 @@ MonoBehaviour:
   seedSprite: {fileID: 21300000, guid: 7985e53e971a17d408364310fd84cb36, type: 3}
   growthSprite: {fileID: 21300000, guid: 8f45e1517417d104c89dbb637e32aaf1, type: 3}
   plantSprite: {fileID: 21300000, guid: a8ed9594b9ec7724a9aa01d843330bd0, type: 3}
-  selectedColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!212 &212027947124852620
 SpriteRenderer:
   m_ObjectHideFlags: 1
