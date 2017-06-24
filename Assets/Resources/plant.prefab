@@ -149,8 +149,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 3
-  seedSprite: {fileID: 21300000, guid: 7985e53e971a17d408364310fd84cb36, type: 3}
-  growthSprite: {fileID: 21300000, guid: 8f45e1517417d104c89dbb637e32aaf1, type: 3}
+  seedSprite: {fileID: 21300000, guid: b9e45dcd4bd39894f92e17eb2b18628c, type: 3}
+  growthSprite: {fileID: 21300000, guid: be4169882c150a34893069de77eb45be, type: 3}
   plantSprite: {fileID: 21300000, guid: a8ed9594b9ec7724a9aa01d843330bd0, type: 3}
 --- !u!212 &212027947124852620
 SpriteRenderer:
