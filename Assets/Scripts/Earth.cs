@@ -34,6 +34,9 @@ public class Earth : MonoBehaviour {
 
 	void Plant(Vector3 isoPosition) {
 		var template = (GameObject)Resources.Load("plant");
+		if (!Bank.HasSeeds(template.GetComponent<Plant>().cost)) {
+			return;
+		}
 		plant = Instantiate(template, transform.parent);
 		plant.GetComponent<Tile>().IsoPosition = isoPosition;
 		grass.SetActive(false);

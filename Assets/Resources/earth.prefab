@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedColor: {r: 0, g: 1, b: 0, a: 1}
-  grass: {fileID: 0}
+  grass: {fileID: 1912236006063306, guid: b41294d239c361248a9bcd9592be0a0d, type: 2}
 --- !u!114 &114820339646319974
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -3,20 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Plant : MonoBehaviour {
+
 	public float time;
-	float seedTime;
-	float growthTime;
+	private float seedTime;
+	private float growthTime;
+
+	public int cost;
+	public int worth;
 
 	public Sprite seedSprite;
 	public Sprite growthSprite;
 	public Sprite plantSprite;
 
-	new SpriteRenderer renderer;
-	bool selected = false;
-	bool growing = false;
-	float timer = 0;
+	private new SpriteRenderer renderer;
+	private bool selected = false;
+	private bool growing = false;
+	private float timer;
 
-	void Start() {
+	public delegate void Planted(int cost);
+	public static event Planted OnPlant;
+
+	public delegate void Harvested(int worth);
+
+	public static event Harvested OnHarvest;
+
+	private void Awake() {
+		OnPlant(cost);
+	}
+
+	private void OnDestroy() {
+		OnHarvest(worth);
+	}
+
+	private void Start() {
 		renderer = GetComponent<SpriteRenderer>();
 		seedTime = time * 0.3f;
 		growthTime = time - seedTime;
@@ -27,14 +46,14 @@ public class Plant : MonoBehaviour {
 		StartCoroutine(Grow());
 	}
 
-	void Update() {
+	private void Update() {
 		if (growing) {
 			timer += Time.deltaTime;
 			transform.Find("text").GetComponent<TextMesh>().text = (Mathf.Max(0, time - timer)).ToString("F1");
 		}
 	}
 
-	IEnumerator Grow() {
+	private IEnumerator Grow() {
 		growing = true;
 		renderer.sprite = seedSprite;
 		yield return new WaitForSeconds(seedTime);
