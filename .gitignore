@@ -24,6 +24,10 @@ ExportedObj/
 *.svd
 *.pdb
 
+# Rider C#
+.idea/
+*.*.iml
+
 # Unity3D generated meta files
 *.pidb.meta
 
