@@ -219,57 +219,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Bank: {fileID: 997526141}
   DebugLoad: 1
---- !u!1001 &863841436
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4226359817344742, guid: 0ed4bb2daa6a49e469d7e4ea47df0fe3, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4226359817344742, guid: 0ed4bb2daa6a49e469d7e4ea47df0fe3, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 1.28
-      objectReference: {fileID: 0}
-    - target: {fileID: 4226359817344742, guid: 0ed4bb2daa6a49e469d7e4ea47df0fe3, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4226359817344742, guid: 0ed4bb2daa6a49e469d7e4ea47df0fe3, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4226359817344742, guid: 0ed4bb2daa6a49e469d7e4ea47df0fe3, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4226359817344742, guid: 0ed4bb2daa6a49e469d7e4ea47df0fe3, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4226359817344742, guid: 0ed4bb2daa6a49e469d7e4ea47df0fe3, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4226359817344742, guid: 0ed4bb2daa6a49e469d7e4ea47df0fe3, type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 102136949046607408, guid: 0ed4bb2daa6a49e469d7e4ea47df0fe3,
-        type: 2}
-      propertyPath: m_Text
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1297422366150060, guid: 0ed4bb2daa6a49e469d7e4ea47df0fe3, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 0ed4bb2daa6a49e469d7e4ea47df0fe3, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &900916728
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +229,7 @@ GameObject:
   - component: {fileID: 900916730}
   - component: {fileID: 900916729}
   m_Layer: 0
-  m_Name: background-music
+  m_Name: BackgroundMusic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -512,7 +461,7 @@ RectTransform:
   m_Children:
   - {fileID: 1770640703}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -532,7 +481,7 @@ GameObject:
   - component: {fileID: 1209868303}
   - component: {fileID: 1209868302}
   m_Layer: 0
-  m_Name: main-camera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -608,52 +557,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1224511228
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4821790290930282, guid: 5d362def277d2d642876b27cd6e1d103, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4821790290930282, guid: 5d362def277d2d642876b27cd6e1d103, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4821790290930282, guid: 5d362def277d2d642876b27cd6e1d103, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4821790290930282, guid: 5d362def277d2d642876b27cd6e1d103, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4821790290930282, guid: 5d362def277d2d642876b27cd6e1d103, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4821790290930282, guid: 5d362def277d2d642876b27cd6e1d103, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4821790290930282, guid: 5d362def277d2d642876b27cd6e1d103, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4821790290930282, guid: 5d362def277d2d642876b27cd6e1d103, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1035947866516616, guid: 5d362def277d2d642876b27cd6e1d103, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 5d362def277d2d642876b27cd6e1d103, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1574045097
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,7 +617,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1770640702
 GameObject:
@@ -800,7 +703,7 @@ GameObject:
   - component: {fileID: 2111479339}
   - component: {fileID: 2111479338}
   m_Layer: 0
-  m_Name: grid
+  m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -817,14 +720,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edeca9ec9adab434e9b886c3a4d5eca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 1035947866516616, guid: 5d362def277d2d642876b27cd6e1d103, type: 2}
-  width: 5
-  height: 5
-  depth: 3
-  tileWidth: 2.56
-  tileHeight: 2.56
-  tileWidthRatio: 0.5
-  tileHeightRatio: 0.25
+  Tile: {fileID: 1035947866516616, guid: 5d362def277d2d642876b27cd6e1d103, type: 2}
+  Width: 5
+  Height: 5
+  Depth: 2
+  TileWidth: 2.56
+  TileHeight: 2.56
+  TileWidthRatio: 0.5
+  TileHeightRatio: 0.25
 --- !u!4 &2111479339
 Transform:
   m_ObjectHideFlags: 0

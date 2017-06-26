@@ -1,55 +1,59 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Grid : MonoBehaviour {
-	public GameObject tile;
+public class Grid : MonoBehaviour, ISave {
+	public GameObject Tile;
 	[Range(1, 50)]
-	public int width = 1;
+	public int Width = 1;
 	[Range(1, 50)]
-	public int height = 1;
+	public int Height = 1;
 	[Range(1, 50)]
-	public int depth = 1;
+	public int Depth = 1;
 
 	[Space(16)]
-	public float tileWidth;
-	public float tileHeight;
+	public float TileWidth;
+	public float TileHeight;
 
 	[Space(16)]
-	public float tileWidthRatio;
-	public float tileHeightRatio;
+	public float TileWidthRatio;
+	public float TileHeightRatio;
 
-	GameObject[,,] tiles;
-	Vector3 center;
-	Vector3 selected;
+	private GameObject[,,] _tiles;
+	private Vector3 _center;
+	private Vector3 _selected;
+	private bool _loaded;
 
 
-	Vector3 GetCoordinates(Vector3 grid) {
+	private Vector3 GetCoordinates(Vector3 grid) {
 		return new Vector3(
-			(grid.x - (center.x - 0.5f)) * tileWidth,
-			(grid.y - (center.y - 0.5f)) * tileHeight,
+			(grid.x - (_center.x - 0.5f)) * TileWidth,
+			(grid.y - (_center.y - 0.5f)) * TileHeight,
 			grid.z
 		);
 	}
 
-	Vector3 CartToIso(Vector3 grid, Vector3 cart) {
+	private Vector3 CartToIso(Vector3 grid, Vector3 cart) {
 		return new Vector3(
-			(cart.x - cart.y) * tileWidthRatio,
-			-((cart.x + cart.y) * tileHeightRatio + (grid.z * tileHeight * 0.5f)),
+			(cart.x - cart.y) * TileWidthRatio,
+			-((cart.x + cart.y) * TileHeightRatio + (grid.z * TileHeight * 0.5f)),
 			grid.y - grid.z + grid.x
 		);
 	}
 
-	void Start() {
-		tiles = new GameObject[width, height, depth];
-		center = new Vector3(Mathf.Floor(width * 0.5f), Mathf.Floor(height * 0.5f), 0);
-		selected = center;
+	private void Start() {
+		_tiles = new GameObject[Width, Height, Depth];
+		_center = new Vector3(Mathf.Floor(Width * 0.5f), Mathf.Floor(Height * 0.5f), 0);
+		if (!_loaded) {
+			_selected = _center;
+		}
 
-		for (int x = 0; x < tiles.GetLength(0); x++) {
-			for (int y = 0; y < tiles.GetLength(1); y++) {
-				for (int z = 0; z < tiles.GetLength(2); z++) {
-					var tileObject = Instantiate(tile, transform);
+		for (var x = 0; x < _tiles.GetLength(0); x++) {
+			for (var y = 0; y < _tiles.GetLength(1); y++) {
+				for (var z = 0; z < _tiles.GetLength(2); z++) {
+					var tileObject = Instantiate(Tile, transform);
 					var tileScript = tileObject.GetComponent<Earth>();
 
 					var grid = new Vector3(x, y, z);
@@ -65,18 +69,18 @@ public class Grid : MonoBehaviour {
 						var gridG = grid + new Vector3(0, 0, -1);
 						var cartG = GetCoordinates(gridG);
 						var isoG = CartToIso(gridG, cartG);
-						tileScript.Grass(isoG);
+						tileScript.InitGrass(isoG);
 					}
 
-					tiles[x, y, z] = tileObject;
+					_tiles[x, y, z] = tileObject;
 				}
 			}
 		}
 
-		tiles[(int)selected.x, (int)selected.y, (int)selected.z].GetComponent<Earth>().Select();
+		_tiles[(int)_selected.x, (int)_selected.y, (int)_selected.z].GetComponent<Earth>().Select();
 	}
 
-	void Update() {
+	private void Update() {
 		Vector3 map;
 		if (Input.GetButton("Grid Alt")) {
 			map = GetKeyMapDiagonal();
@@ -84,24 +88,24 @@ public class Grid : MonoBehaviour {
 		else {
 			map = GetKeyMapSquareCounter();
 		}
-		var next = selected + map;
+		var next = _selected + map;
 		if (map != Vector3.zero &&
-			next.x >= 0 && next.x < tiles.GetLength(0) &&
-			next.y >= 0 && next.y < tiles.GetLength(1)) {
-			tiles[(int)selected.x, (int)selected.y, (int)selected.z].GetComponent<Earth>().Deselect();
-			tiles[(int)next.x, (int)next.y, (int)next.z].GetComponent<Earth>().Select();
-			selected = next;
+			next.x >= 0 && next.x < _tiles.GetLength(0) &&
+			next.y >= 0 && next.y < _tiles.GetLength(1)) {
+			_tiles[(int)_selected.x, (int)_selected.y, (int)_selected.z].GetComponent<Earth>().Deselect();
+			_tiles[(int)next.x, (int)next.y, (int)next.z].GetComponent<Earth>().Select();
+			_selected = next;
 		}
 
 		if (Input.GetButtonDown("Tile Action")) {
-			var grid = selected + new Vector3(0, 0, -1);
+			var grid = _selected + new Vector3(0, 0, -1);
 			var cart = GetCoordinates(grid);
 			var iso = CartToIso(grid, cart);
-			tiles[(int)selected.x, (int)selected.y, (int)selected.z].GetComponent<Earth>().PerformAction(iso);
+			_tiles[(int)_selected.x, (int)_selected.y, (int)_selected.z].GetComponent<Earth>().PerformAction(iso);
 		}
 	}
 
-	static Vector3 GetKeyMapDiagonal() {
+	private static Vector3 GetKeyMapDiagonal() {
 		if (Input.GetButtonDown("Grid Up")) {
 			Debug.Log("Up");
 			return new Vector3(-1, -1, 0);
@@ -121,7 +125,7 @@ public class Grid : MonoBehaviour {
 		return Vector3.zero;
 	}
 
-	static Vector3 GetKeyMapSquare() {
+	private static Vector3 GetKeyMapSquare() {
 		if (Input.GetButtonDown("Grid Up")) {
 			Debug.Log("Up");
 			return new Vector3(0, -1, 0);
@@ -141,7 +145,7 @@ public class Grid : MonoBehaviour {
 		return Vector3.zero;
 	}
 
-	static Vector3 GetKeyMapSquareCounter() {
+	private static Vector3 GetKeyMapSquareCounter() {
 		if (Input.GetButtonDown("Grid Up")) {
 			Debug.Log("Up");
 			return new Vector3(-1, 0, 0);
@@ -159,5 +163,30 @@ public class Grid : MonoBehaviour {
 			return new Vector3(0, 1, 0);
 		}
 		return Vector3.zero;
+	}
+
+	public XmlNode Save(XmlDocument xml) {
+		Debug.Log(GetType().Name);
+		var element = xml.CreateElement(GetType().Name);
+		element.AppendChild(XmlUtil.CreateByName(xml, "Width", Width.ToString()));
+		element.AppendChild(XmlUtil.CreateByName(xml, "Height", Width.ToString()));
+		element.AppendChild(XmlUtil.CreateByName(xml, "Depth", Width.ToString()));
+		
+		var SelectedXml = xml.CreateElement("Selected");
+		SelectedXml.AppendChild(XmlUtil.CreateByName(xml, "x", _selected.x.ToString()));
+		SelectedXml.AppendChild(XmlUtil.CreateByName(xml, "y", _selected.y.ToString()));
+		SelectedXml.AppendChild(XmlUtil.CreateByName(xml, "z", _selected.z.ToString()));
+		element.AppendChild(SelectedXml);
+		return element;
+	}
+
+	public void Load(XmlNode data) {
+		var SelectedXml = data.SelectSingleNode("Selected");
+		_selected = new Vector3(
+			float.Parse(SelectedXml.SelectSingleNode("x").InnerText),
+			float.Parse(SelectedXml.SelectSingleNode("y").InnerText),
+			float.Parse(SelectedXml.SelectSingleNode("z").InnerText)
+		);
+		_loaded = true;
 	}
 }

@@ -4,41 +4,40 @@ using UnityEngine;
 
 public class Plant : MonoBehaviour {
 
-	public float time;
-	private float seedTime;
-	private float growthTime;
+	public float Time;
+	private float _seedTime;
+	private float _growthTime;
 
-	public int cost;
-	public int worth;
+	public int Cost;
+	public int Worth;
 
-	public Sprite seedSprite;
-	public Sprite growthSprite;
-	public Sprite plantSprite;
+	public Sprite SeedSprite;
+	public Sprite GrowthSprite;
+	public Sprite PlantSprite;
 
-	private new SpriteRenderer renderer;
-	private bool selected = false;
-	private bool growing = false;
-	private float timer;
+	private SpriteRenderer _renderer;
+	private bool _selected;
+	private bool _growing;
+	private float _timer;
 
 	public delegate void Planted(int cost);
 	public static event Planted OnPlant;
 
 	public delegate void Harvested(int worth);
-
 	public static event Harvested OnHarvest;
 
 	private void Awake() {
-		OnPlant(cost);
+		OnPlant(Cost);
 	}
 
 	private void OnDestroy() {
-		OnHarvest(worth);
+		OnHarvest(Worth);
 	}
 
 	private void Start() {
-		renderer = GetComponent<SpriteRenderer>();
-		seedTime = time * 0.3f;
-		growthTime = time - seedTime;
+		_renderer = GetComponent<SpriteRenderer>();
+		_seedTime = Time * 0.3f;
+		_growthTime = Time - _seedTime;
 
 		transform.Find("text").GetComponent<MeshRenderer>().sortingLayerName = "Plant";
 		transform.Find("text").GetComponent<MeshRenderer>().sortingOrder = 1;
@@ -47,23 +46,23 @@ public class Plant : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (growing) {
-			timer += Time.deltaTime;
-			transform.Find("text").GetComponent<TextMesh>().text = (Mathf.Max(0, time - timer)).ToString("F1");
+		if (_growing) {
+			_timer += UnityEngine.Time.deltaTime;
+			transform.Find("text").GetComponent<TextMesh>().text = (Mathf.Max(0, Time - _timer)).ToString("F1");
 		}
 	}
 
 	private IEnumerator Grow() {
-		growing = true;
-		renderer.sprite = seedSprite;
-		yield return new WaitForSeconds(seedTime);
-		renderer.sprite = growthSprite;
-		yield return new WaitForSeconds(growthTime);
-		renderer.sprite = plantSprite;
-		growing = false;
+		_growing = true;
+		_renderer.sprite = SeedSprite;
+		yield return new WaitForSeconds(_seedTime);
+		_renderer.sprite = GrowthSprite;
+		yield return new WaitForSeconds(_growthTime);
+		_renderer.sprite = PlantSprite;
+		_growing = false;
 	}
 
 	public bool IsDone() {
-		return !growing;
+		return !_growing;
 	}
 }
