@@ -8,11 +8,11 @@ public class SaveManager : MonoBehaviour {
 	public GameObject Bank;
 	public bool DebugLoad;
 
-	private string _path = "test.xml";
+	private string _path = "Saves/test.xml";
 	
 	private void Awake() {
 		_path = Path.Combine(Application.dataPath, _path);
-		if (DebugLoad) Load();
+		if (DebugLoad && File.Exists(_path)) Load();
 	}
 
 	private void Update () {
