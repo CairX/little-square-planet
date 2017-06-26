@@ -138,7 +138,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectedColor: {r: 0, g: 1, b: 0, a: 1}
-  Grass: {fileID: 1912236006063306, guid: b41294d239c361248a9bcd9592be0a0d, type: 2}
+  GrassTemplate: {fileID: 1912236006063306, guid: b41294d239c361248a9bcd9592be0a0d,
+    type: 2}
+  PlantTemplate: {fileID: 1297422366150060, guid: 0ed4bb2daa6a49e469d7e4ea47df0fe3,
+    type: 2}
 --- !u!114 &114820339646319974
 MonoBehaviour:
   m_ObjectHideFlags: 1

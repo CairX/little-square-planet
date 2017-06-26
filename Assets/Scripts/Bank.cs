@@ -48,7 +48,7 @@ public class Bank : MonoBehaviour, ISave {
 
 	public XmlNode Save(XmlDocument xml) {
 		var element = xml.CreateElement(GetType().Name);
-		element.AppendChild(XmlUtil.CreateByName(xml, "Seeds", Seeds.ToString()));
+		element.AppendChild(XmlUtil.CreateFromName(xml, "Seeds", Seeds));
 		return element;
 	}
 

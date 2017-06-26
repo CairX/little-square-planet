@@ -217,7 +217,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d4cabf40b05bb247814222c7cd69f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bank: {fileID: 997526141}
+  Items:
+  - {fileID: 997526141}
+  - {fileID: 2111479337}
   DebugLoad: 1
 --- !u!1 &900916728
 GameObject:
@@ -720,14 +722,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edeca9ec9adab434e9b886c3a4d5eca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tile: {fileID: 1035947866516616, guid: 5d362def277d2d642876b27cd6e1d103, type: 2}
+  TileTemplate: {fileID: 0}
   Width: 5
   Height: 5
   Depth: 2
-  TileWidth: 2.56
-  TileHeight: 2.56
-  TileWidthRatio: 0.5
-  TileHeightRatio: 0.25
 --- !u!4 &2111479339
 Transform:
   m_ObjectHideFlags: 0

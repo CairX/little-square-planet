@@ -27,11 +27,13 @@ public class Plant : MonoBehaviour {
 	public static event Harvested OnHarvest;
 
 	private void Awake() {
-		OnPlant(Cost);
+		// TODO Can't be called from here because it takes money from the bank when loading a save.
+		if (OnPlant != null) OnPlant(Cost);
 	}
 
 	private void OnDestroy() {
-		OnHarvest(Worth);
+		// TODO Can't be called from here because it adds money to the bank when loading a save.
+		if (OnHarvest != null) OnHarvest(Worth);
 	}
 
 	private void Start() {
@@ -48,7 +50,7 @@ public class Plant : MonoBehaviour {
 	private void Update() {
 		if (_growing) {
 			_timer += UnityEngine.Time.deltaTime;
-			transform.Find("text").GetComponent<TextMesh>().text = (Mathf.Max(0, Time - _timer)).ToString("F1");
+			transform.Find("text").GetComponent<TextMesh>().text = Mathf.Max(0, Time - _timer).ToString("F1");
 		}
 	}
 
