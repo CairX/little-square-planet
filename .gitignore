@@ -27,7 +27,7 @@ ExportedObj/
 # Rider C#
 .idea/
 *.*.iml
-Assets/Plugins/Editor*
+Assets/Plugins*
 
 # Unity3D generated meta files
 *.pidb.meta
