@@ -153,7 +153,7 @@ MonoBehaviour:
   Worth: 2
   SeedSprite: {fileID: 21300000, guid: b9e45dcd4bd39894f92e17eb2b18628c, type: 3}
   GrowthSprite: {fileID: 21300000, guid: be4169882c150a34893069de77eb45be, type: 3}
-  PlantSprite: {fileID: 21300000, guid: ebbb1bb727a28204993f29b583d71551, type: 3}
+  PlantSprite: {fileID: 21300000, guid: 28cd6134e4f22154b825001085d6948a, type: 3}
 --- !u!212 &212027947124852620
 SpriteRenderer:
   m_ObjectHideFlags: 1
