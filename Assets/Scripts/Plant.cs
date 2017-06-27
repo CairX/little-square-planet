@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 
-public class Plant : MonoBehaviour {
+public class Plant : MonoBehaviour, ISave {
 
 	public float Time;
-	private float _seedTime;
-	private float _growthTime;
 
 	public int Cost;
 	public int Worth;
@@ -38,33 +37,49 @@ public class Plant : MonoBehaviour {
 
 	private void Start() {
 		_renderer = GetComponent<SpriteRenderer>();
-		_seedTime = Time * 0.3f;
-		_growthTime = Time - _seedTime;
 
 		transform.Find("text").GetComponent<MeshRenderer>().sortingLayerName = "Plant";
-		transform.Find("text").GetComponent<MeshRenderer>().sortingOrder = 1;
+		transform.Find("text").GetComponent<MeshRenderer>().sortingOrder = 100;
 
 		StartCoroutine(Grow());
 	}
 
 	private void Update() {
-		if (_growing) {
-			_timer += UnityEngine.Time.deltaTime;
-			transform.Find("text").GetComponent<TextMesh>().text = Mathf.Max(0, Time - _timer).ToString("F1");
-		}
+		if (!_growing) return;
+		_timer += UnityEngine.Time.deltaTime;
+		transform.Find("text").GetComponent<TextMesh>().text = Mathf.Max(0, Time - _timer).ToString("F1");
 	}
 
 	private IEnumerator Grow() {
+		// Seed
 		_growing = true;
 		_renderer.sprite = SeedSprite;
-		yield return new WaitForSeconds(_seedTime);
+		while (_timer < Time * 0.3f) {
+			yield return null;
+		}
+
+		// Growing
 		_renderer.sprite = GrowthSprite;
-		yield return new WaitForSeconds(_growthTime);
+		while (_timer < Time) {
+			yield return null;
+		}
+
+		// Done
 		_renderer.sprite = PlantSprite;
 		_growing = false;
 	}
 
 	public bool IsDone() {
 		return !_growing;
+	}
+
+	public XmlNode Save(XmlDocument xml) {
+		var element = xml.CreateElement(GetType().Name);
+		element.AppendChild(XmlUtil.CreateFromName(xml, "Timer", _timer));
+		return element;
+	}
+
+	public void Load(XmlNode data) {
+		_timer = float.Parse(data.SelectSingleNode("Timer").InnerText);
 	}
 }
