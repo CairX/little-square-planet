@@ -75,7 +75,6 @@ public class Earth : MonoBehaviour, ISave {
 
 	public XmlNode Save(XmlDocument xml) {
 		var element = xml.CreateElement(GetType().Name);
-		//element.AppendChild(XmlUtil.CreateFromName(xml, "Selected", _selected));
 		if (_plant) {
 			var plantXml = XmlUtil.CreateFromGameObject(xml, _plant);
 			element.AppendChild(plantXml);
@@ -86,7 +85,6 @@ public class Earth : MonoBehaviour, ISave {
 	public void Load(XmlNode data) {
 		var plantXml = data.SelectSingleNode("Plant");
 		if (plantXml != null) {
-			Debug.Log("LOAD PLANT ON EARTH");
 			Plant();
 			XmlUtil.LoadComponents(_plant, plantXml);
 		}
