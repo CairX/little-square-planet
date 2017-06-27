@@ -220,7 +220,7 @@ MonoBehaviour:
   Items:
   - {fileID: 997526141}
   - {fileID: 2111479337}
-  DebugLoad: 1
+  DebugLoad: 0
 --- !u!1 &900916728
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,6 +704,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2111479339}
   - component: {fileID: 2111479338}
+  - component: {fileID: 2111479340}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -724,8 +725,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TileTemplate: {fileID: 1035947866516616, guid: 5d362def277d2d642876b27cd6e1d103,
     type: 2}
-  Width: 5
-  Height: 5
+  Width: 11
+  Height: 11
   Depth: 2
 --- !u!4 &2111479339
 Transform:
@@ -740,3 +741,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2111479340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2111479337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4da7cb884d50f24e8c010f9f78ca71f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Min: 1
+  Max: 0.4
+  Step: 0.05
