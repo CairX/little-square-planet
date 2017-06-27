@@ -18,7 +18,7 @@ public class SaveManager : MonoBehaviour {
 	}
 
 	private void Update () {
-		if (Input.GetKeyDown(KeyCode.Alpha0)) Save();
+		if (Input.GetButtonDown("Save")) Save();
 	}
 
 	private void Load() {
@@ -40,6 +40,7 @@ public class SaveManager : MonoBehaviour {
 
 			notLoaded.Remove(itemElement.Name);
 		}
+		Debug.Log("Game Loaded");
 	}
 
 	private void Save() {
@@ -55,6 +56,7 @@ public class SaveManager : MonoBehaviour {
 		}
 
 		xml.Save(_path);
+		Debug.Log("Game Saved");
 	}
 }
 
