@@ -18,9 +18,13 @@ public class Grid : MonoBehaviour, ISave {
 	private bool _loaded;
 
 	private void Start() {
+		_center = new Vector3(Mathf.Floor(Width * 0.5f), Mathf.Floor(Height * 0.5f), 0);
+		var isoCenter = Tile.ToIsometricPosition(_center);
+		Debug.Log(isoCenter);
+		transform.position = new Vector3(isoCenter.x, -(isoCenter.y * 0.5f), transform.position.z);
+		
 		if (!_loaded) {
 			_tiles = new GameObject[Width, Height, Depth];
-			_center = new Vector3(Mathf.Floor(Width * 0.5f), Mathf.Floor(Height * 0.5f), 0);
 			_selected = _center;
 
 			for (var x = 0; x < _tiles.GetLength(0); x++) {
@@ -148,7 +152,6 @@ public class Grid : MonoBehaviour, ISave {
 		Depth = int.Parse(data.SelectSingleNode("Depth").InnerText);
 		
 		_tiles = new GameObject[Width, Height, Depth];
-		_center = new Vector3(Mathf.Floor(Width * 0.5f), Mathf.Floor(Height * 0.5f), 0);
 		
 		var selectedXml = data.SelectSingleNode("Selected");
 		_selected = new Vector3(
