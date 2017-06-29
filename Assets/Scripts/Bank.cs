@@ -10,8 +10,12 @@ public class Bank : MonoBehaviour, ISave {
 	public int Seeds;
 	public Text Text;
 
+	private GameObject[] _plants;
+	private int _selected;
+
 	private void Awake() {
 		Instance = this;
+		_plants = Resources.LoadAll<GameObject>("Plants");
 	}
 
 	private void Start() {
@@ -26,6 +30,14 @@ public class Bank : MonoBehaviour, ISave {
 	private void OnDisable() {
 		Plant.OnPlant += RemoveSeeds;
 		Plant.OnHarvest += AddSeeds;
+	}
+
+	private void Update() {
+		if (Input.GetKeyDown(KeyCode.Alpha1)) {
+			_selected = 0;
+		} else if (Input.GetKeyDown(KeyCode.Alpha2)) {
+			_selected = 1;
+		}
 	}
 
 	private void AddSeeds(int seeds) {
@@ -44,6 +56,14 @@ public class Bank : MonoBehaviour, ISave {
 
 	public static bool HasSeeds(int seeds) {
 		return Instance.Seeds - seeds >= 0;
+	}
+
+	public static bool CanBuySelected() {
+		return HasSeeds(Instance._plants[Instance._selected].GetComponent<Plant>().Cost);
+	}
+
+	public static GameObject Selected() {
+		return Instance._plants[Instance._selected];
 	}
 
 	public XmlNode Save() {

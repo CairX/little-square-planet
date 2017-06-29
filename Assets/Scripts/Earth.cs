@@ -13,7 +13,6 @@ public class Earth : MonoBehaviour, ISave {
 	public GameObject GrassTemplate;
 	private GameObject _grass;
 
-	public GameObject PlantTemplate;
 	private GameObject _plant;
 
 	private void Awake() {
@@ -31,7 +30,7 @@ public class Earth : MonoBehaviour, ISave {
 	}
 
 	private void Plant() {
-		_plant = Instantiate(PlantTemplate, transform.parent);
+		_plant = Instantiate(Bank.Selected(), transform.parent);
 		_plant.GetComponent<Tile>().Position = GetComponent<Tile>().Position + new Vector3(0, 0, -1);
 		if (_grass) _grass.SetActive(false);
 		UpdateColor();
@@ -54,7 +53,7 @@ public class Earth : MonoBehaviour, ISave {
 
 	public void PerformAction() {
 		if (!_plant) {
-			if (Bank.HasSeeds(PlantTemplate.GetComponent<Plant>().Cost)) {
+			if (Bank.CanBuySelected()) {
 				Plant();
 			}
 		}
