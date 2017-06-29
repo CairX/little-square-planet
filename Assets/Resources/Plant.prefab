@@ -151,9 +151,9 @@ MonoBehaviour:
   Time: 3
   Cost: 1
   Worth: 2
-  SeedSprite: {fileID: 21300000, guid: b9e45dcd4bd39894f92e17eb2b18628c, type: 3}
-  GrowthSprite: {fileID: 21300000, guid: be4169882c150a34893069de77eb45be, type: 3}
-  PlantSprite: {fileID: 21300000, guid: 28cd6134e4f22154b825001085d6948a, type: 3}
+  SeedSprite: {fileID: 21300000, guid: 65642963aa7a4f64eb8d3af75e274013, type: 3}
+  GrowthSprite: {fileID: 21300000, guid: ce49ac203d8af404ebd884123ee57d90, type: 3}
+  PlantSprite: {fileID: 21300000, guid: aacb5d638133de9478e3b8653dc78e25, type: 3}
 --- !u!212 &212027947124852620
 SpriteRenderer:
   m_ObjectHideFlags: 1
