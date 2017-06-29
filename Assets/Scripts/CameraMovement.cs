@@ -5,7 +5,18 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour {
 	public float Speed;
 
+	private Vector3 _reset;
+
+	private void Start() {
+		_reset = transform.position;
+	}
+
 	private void Update() {
+		if (Input.GetButtonDown("Camera Reset")) {
+			transform.position = _reset;
+			return;
+		}
+		
 		// Reverse becaues we are moving the camera and not an object.
 		if (Input.GetButton("Camera Up")) {
 			Move(Vector3.down);
