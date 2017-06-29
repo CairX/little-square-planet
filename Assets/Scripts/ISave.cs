@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 
 public interface ISave {
-	XmlNode Save(XmlDocument xml);
+	XmlNode Save();
 	void Load(XmlNode data);
 }

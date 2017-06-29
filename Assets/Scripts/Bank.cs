@@ -46,13 +46,13 @@ public class Bank : MonoBehaviour, ISave {
 		return Instance.Seeds - seeds >= 0;
 	}
 
-	public XmlNode Save(XmlDocument xml) {
-		var element = xml.CreateElement(GetType().Name);
-		element.AppendChild(XmlUtil.CreateFromName(xml, "Seeds", Seeds));
+	public XmlNode Save() {
+		var element = Xml.Element(this);
+		element.AppendChild(Xml.Element("Seeds", Seeds));
 		return element;
 	}
 
 	public void Load(XmlNode data) {
-		Seeds = int.Parse(data.SelectSingleNode("Seeds").InnerText);
+		Seeds = Xml.Int(data.SelectSingleNode("Seeds"));
 	}
 }

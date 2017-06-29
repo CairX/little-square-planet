@@ -20,7 +20,6 @@ public class Grid : MonoBehaviour, ISave {
 	private void Start() {
 		_center = new Vector3(Mathf.Floor(Width * 0.5f), Mathf.Floor(Height * 0.5f), 0);
 		var isoCenter = Tile.ToIsometricPosition(_center);
-		Debug.Log(isoCenter);
 		transform.position = new Vector3(isoCenter.x, -(isoCenter.y * 0.5f), transform.position.z);
 		
 		if (!_loaded) {
@@ -123,21 +122,21 @@ public class Grid : MonoBehaviour, ISave {
 		return Vector3.zero;
 	}
 
-	public XmlNode Save(XmlDocument xml) {
-		var element = xml.CreateElement(GetType().Name);
-		element.AppendChild(XmlUtil.CreateFromName(xml, "Width", Width));
-		element.AppendChild(XmlUtil.CreateFromName(xml, "Height", Height));
-		element.AppendChild(XmlUtil.CreateFromName(xml, "Depth", Depth));
-		element.AppendChild(XmlUtil.CreateFromName(xml, "Selected", _selected));
+	public XmlNode Save() {
+		var element = Xml.Element(this);
+		element.AppendChild(Xml.Element("Width", Width));
+		element.AppendChild(Xml.Element("Height", Height));
+		element.AppendChild(Xml.Element("Depth", Depth));
+		element.AppendChild(Xml.Element("Selected", _selected));
 
-		var tilesXml = xml.CreateElement("Tiles");
+		var tilesXml = Xml.Element("Tiles");
 		element.AppendChild(tilesXml);
 
 		for (var x = 0; x < _tiles.GetLength(0); x++) {
 			for (var y = 0; y < _tiles.GetLength(1); y++) {
 				for (var z = 0; z < _tiles.GetLength(2); z++) {
 					var tile = _tiles[x, y, z];
-					var tileXml = XmlUtil.CreateFromGameObject(xml, tile);
+					var tileXml = Xml.CreateFromGameObject(tile);
 					tilesXml.AppendChild(tileXml);
 				}
 			}
@@ -147,25 +146,18 @@ public class Grid : MonoBehaviour, ISave {
 	}
 
 	public void Load(XmlNode data) {
-		Width = int.Parse(data.SelectSingleNode("Width").InnerText);
-		Height = int.Parse(data.SelectSingleNode("Height").InnerText);
-		Depth = int.Parse(data.SelectSingleNode("Depth").InnerText);
+		Width = Xml.Int(data.SelectSingleNode("Width"));
+		Height = Xml.Int(data.SelectSingleNode("Height"));
+		Depth = Xml.Int(data.SelectSingleNode("Depth"));
 		
 		_tiles = new GameObject[Width, Height, Depth];
-		
-		var selectedXml = data.SelectSingleNode("Selected");
-		_selected = new Vector3(
-			float.Parse(selectedXml.Attributes["x"].InnerText),
-			float.Parse(selectedXml.Attributes["y"].InnerText),
-			float.Parse(selectedXml.Attributes["z"].InnerText)
-		);
+		_selected = Xml.Vector3(data.SelectSingleNode("Selected"));
 
 		var tilesXml = data.SelectSingleNode("Tiles").ChildNodes;
-		Debug.Log(tilesXml.Count);
 		for (var i = 0; i < tilesXml.Count; i++) {
 			// TODO Might not be object of TileTemplate. Need to look for the correct template.
 			var tile = Instantiate(TileTemplate, transform);
-			XmlUtil.LoadComponents(tile, tilesXml[i]);
+			Xml.LoadComponents(tile, tilesXml[i]);
 			var pos = tile.GetComponent<Tile>().Position;
 			_tiles[(int) pos.x, (int) pos.y, (int) pos.z] = tile;
 		}

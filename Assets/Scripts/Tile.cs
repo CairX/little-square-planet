@@ -45,18 +45,13 @@ public class Tile : MonoBehaviour, ISave {
 //		transform.Find("text").GetComponent<MeshRenderer>().sortingOrder = (int)_position.z;
 	}
 
-	public XmlNode Save(XmlDocument xml) {
-		var element = xml.CreateElement(GetType().Name);
-		element.AppendChild(XmlUtil.CreateFromName(xml, "Position", Position));
+	public XmlNode Save() {
+		var element = Xml.Element(this);
+		element.AppendChild(Xml.Element("Position", Position));
 		return element;
 	}
 
 	public void Load(XmlNode data) {
-		var positionXml = data.SelectSingleNode("Position");
-		Position = new Vector3(
-			float.Parse(positionXml.Attributes["x"].InnerText),
-			float.Parse(positionXml.Attributes["y"].InnerText),
-			float.Parse(positionXml.Attributes["z"].InnerText)
-		);
+		Position = Xml.Vector3(data.SelectSingleNode("Position"));
 	}
 }

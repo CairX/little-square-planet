@@ -73,13 +73,13 @@ public class Plant : MonoBehaviour, ISave {
 		return !_growing;
 	}
 
-	public XmlNode Save(XmlDocument xml) {
-		var element = xml.CreateElement(GetType().Name);
-		element.AppendChild(XmlUtil.CreateFromName(xml, "Timer", _timer));
+	public XmlNode Save() {
+		var element = Xml.Element(this);
+		element.AppendChild(Xml.Element("Timer", _timer));
 		return element;
 	}
 
 	public void Load(XmlNode data) {
-		_timer = float.Parse(data.SelectSingleNode("Timer").InnerText);
+		_timer = Xml.Float(data.SelectSingleNode("Timer"));
 	}
 }

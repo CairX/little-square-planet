@@ -73,10 +73,10 @@ public class Earth : MonoBehaviour, ISave {
 		UpdateColor();
 	}
 
-	public XmlNode Save(XmlDocument xml) {
-		var element = xml.CreateElement(GetType().Name);
+	public XmlNode Save() {
+		var element = Xml.Element(this);
 		if (_plant) {
-			var plantXml = XmlUtil.CreateFromGameObject(xml, _plant);
+			var plantXml = Xml.CreateFromGameObject(_plant);
 			element.AppendChild(plantXml);
 		}
 		return element;
@@ -86,7 +86,7 @@ public class Earth : MonoBehaviour, ISave {
 		var plantXml = data.SelectSingleNode("Plant");
 		if (plantXml != null) {
 			Plant();
-			XmlUtil.LoadComponents(_plant, plantXml);
+			Xml.LoadComponents(_plant, plantXml);
 		}
 	}
 }
