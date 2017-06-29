@@ -82,9 +82,9 @@ public class Earth : MonoBehaviour, ISave {
 	}
 
 	public void Load(XmlNode data) {
-		var plantXml = data.SelectSingleNode("Plant");
+		var plantXml = data.FirstChild;
 		if (plantXml != null) {
-			Plant();
+			_plant = Instantiate(Resources.Load<GameObject>("Plants/" + plantXml.Name), transform.parent);
 			Xml.LoadComponents(_plant, plantXml);
 		}
 	}
