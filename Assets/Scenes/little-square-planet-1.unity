@@ -754,8 +754,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Min: 1
-  Max: 0.4
-  Step: 0.05
+  Max: 5
+  Steps: 10
+  DefaultStep: 5
 --- !u!114 &2111479341
 MonoBehaviour:
   m_ObjectHideFlags: 0
