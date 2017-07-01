@@ -29,16 +29,36 @@ public class Earth : MonoBehaviour, ISave {
 		}
 	}
 
-	private void Plant() {
+	private void Update() {
+		if (!_selected) return;
+		
+		if (Input.GetButtonDown("Tile Action") && !_plant && Bank.CanBuySelected()) {
+			Sow();
+		}
+		else if (Input.GetButtonDown("Tile Action") && _plant.GetComponent<Plant>().IsDone()) {
+			Harvest();
+		}
+
+		if (Input.GetButtonDown("Cancel Plant") && _plant && !_plant.GetComponent<Plant>().IsDone()) {
+			Cancel();
+		}
+	}
+
+	private void Sow() {
 		_plant = Instantiate(Bank.Selected(), transform.parent);
 		_plant.GetComponent<Tile>().Position = GetComponent<Tile>().Position + new Vector3(0, 0, -1);
+		_plant.GetComponent<Plant>().Sow();
 		if (_grass) _grass.SetActive(false);
 		UpdateColor();
 	}
 
 	private void Harvest() {
-		Destroy(_plant);
+		_plant.GetComponent<Plant>().Harvest();
 		_grass.SetActive(true);
+	}
+
+	private void Cancel() {
+		_plant.GetComponent<Plant>().Cancel();
 	}
 
 	private void UpdateColor() {
@@ -54,7 +74,7 @@ public class Earth : MonoBehaviour, ISave {
 	public void PerformAction() {
 		if (!_plant) {
 			if (Bank.CanBuySelected()) {
-				Plant();
+				Sow();
 			}
 		}
 		else if (_plant.GetComponent<Plant>().IsDone()) {

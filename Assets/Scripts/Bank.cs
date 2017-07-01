@@ -25,11 +25,13 @@ public class Bank : MonoBehaviour, ISave {
 	private void OnEnable() {
 		Plant.OnPlant += RemoveSeeds;
 		Plant.OnHarvest += AddSeeds;
+		Plant.OnCancel += AddSeeds;
 	}
 
 	private void OnDisable() {
-		Plant.OnPlant += RemoveSeeds;
-		Plant.OnHarvest += AddSeeds;
+		Plant.OnPlant -= RemoveSeeds;
+		Plant.OnHarvest -= AddSeeds;
+		Plant.OnCancel -= AddSeeds;
 	}
 
 	private void Update() {

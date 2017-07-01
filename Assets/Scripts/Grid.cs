@@ -56,10 +56,6 @@ public class Grid : MonoBehaviour, ISave {
 			_tiles[(int)next.x, (int)next.y, (int)next.z].GetComponent<Earth>().Select();
 			_selected = next;
 		}
-
-		if (Input.GetButtonDown("Tile Action")) {
-			_tiles[(int)_selected.x, (int)_selected.y, (int)_selected.z].GetComponent<Earth>().PerformAction();
-		}
 	}
 
 	private static Vector3 GetKeyMapDiagonal() {
