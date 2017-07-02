@@ -12,7 +12,6 @@ public class Earth : MonoBehaviour, ISave {
 
 	public GameObject GrassTemplate;
 	private GameObject _grass;
-
 	private GameObject _plant;
 
 	private void Awake() {
@@ -35,13 +34,32 @@ public class Earth : MonoBehaviour, ISave {
 		if (Input.GetButtonDown("Tile Action") && !_plant && Bank.CanBuySelected()) {
 			Sow();
 		}
-		else if (Input.GetButtonDown("Tile Action") && _plant.GetComponent<Plant>().IsDone()) {
+		else if (Input.GetButtonDown("Tile Action") && _plant && _plant.GetComponent<Plant>().IsDone()) {
 			Harvest();
 		}
 
 		if (Input.GetButtonDown("Cancel Plant") && _plant && !_plant.GetComponent<Plant>().IsDone()) {
 			Cancel();
 		}
+	}
+
+	public string StateDescription() {
+		if (_plant && !_plant.GetComponent<Plant>().IsDone()) {
+			return "Growing / Cancel";
+		}
+		if (_plant && _plant.GetComponent<Plant>().IsDone()) {
+			return "Harvest";
+		}
+		return "Plant";
+	}
+	public string StateSecondary() {
+		if (_plant && !_plant.GetComponent<Plant>().IsDone()) {
+			return _plant.GetComponent<Plant>().Countdown() + " / C";
+		}
+		if (_plant && _plant.GetComponent<Plant>().IsDone()) {
+			return "Spacebar";
+		}
+		return "Spacebar";
 	}
 
 	private void Sow() {
@@ -68,17 +86,6 @@ public class Earth : MonoBehaviour, ISave {
 		}
 		if (_plant) {
 			_plant.GetComponent<SpriteRenderer>().color = _renderer.color;
-		}
-	}
-
-	public void PerformAction() {
-		if (!_plant) {
-			if (Bank.CanBuySelected()) {
-				Sow();
-			}
-		}
-		else if (_plant.GetComponent<Plant>().IsDone()) {
-			Harvest();
 		}
 	}
 

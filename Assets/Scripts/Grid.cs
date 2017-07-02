@@ -17,6 +17,9 @@ public class Grid : MonoBehaviour, ISave {
 	private Vector3 _selected;
 	private bool _loaded;
 
+	public delegate void TileSelected(GameObject tile);
+	public static event TileSelected OnTileSelect;
+
 	private void Start() {
 		_center = new Vector3(Mathf.Floor(Width * 0.5f), Mathf.Floor(Height * 0.5f), 0);
 		var isoCenter = Tile.ToIsometricPosition(_center);
@@ -35,9 +38,10 @@ public class Grid : MonoBehaviour, ISave {
 					}
 				}
 			}
-
-			_tiles[(int) _selected.x, (int) _selected.y, (int) _selected.z].GetComponent<Earth>().Select();
 		}
+		
+		_tiles[(int) _selected.x, (int) _selected.y, (int) _selected.z].GetComponent<Earth>().Select();
+		if (OnTileSelect != null) OnTileSelect(_tiles[(int)_selected.x, (int)_selected.y, (int)_selected.z]);
 	}
 
 	private void Update() {
@@ -52,9 +56,11 @@ public class Grid : MonoBehaviour, ISave {
 		if (map != Vector3.zero &&
 			next.x >= 0 && next.x < _tiles.GetLength(0) &&
 			next.y >= 0 && next.y < _tiles.GetLength(1)) {
+
 			_tiles[(int)_selected.x, (int)_selected.y, (int)_selected.z].GetComponent<Earth>().Deselect();
 			_tiles[(int)next.x, (int)next.y, (int)next.z].GetComponent<Earth>().Select();
 			_selected = next;
+			if (OnTileSelect != null) OnTileSelect(_tiles[(int)_selected.x, (int)_selected.y, (int)_selected.z]);
 		}
 	}
 
@@ -158,7 +164,6 @@ public class Grid : MonoBehaviour, ISave {
 			_tiles[(int) pos.x, (int) pos.y, (int) pos.z] = tile;
 		}
 
-		_tiles[(int) _selected.x, (int) _selected.y, (int) _selected.z].GetComponent<Earth>().Select();
 		_loaded = true;
 	}
 }

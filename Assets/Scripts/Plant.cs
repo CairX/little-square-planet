@@ -80,6 +80,10 @@ public class Plant : MonoBehaviour, ISave {
 		return !_growing;
 	}
 
+	public string Countdown() {
+		return Mathf.Max(0, Time - _timer).ToString("F1");
+	}
+
 	public XmlNode Save() {
 		var element = Xml.Element(this);
 		element.AppendChild(Xml.Element("Timer", _timer));
