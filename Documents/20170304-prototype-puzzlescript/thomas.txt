@@ -1,0 +1,121 @@
+title Little Square Planet
+author Thomas Cairns
+homepage cairns.se
+
+========
+OBJECTS
+========
+Background
+Green Lightgreen
+00000
+00100
+00000
+00010
+10000
+
+Dirt
+Darkbrown Black
+00000
+00000
+00000
+00000
+00000
+
+Seed
+Darkbrown Brown
+00000
+01010
+01010
+01010
+00000
+
+Flower1
+Darkbrown Red Green Yellow
+00000
+00000
+00000
+00200
+00000
+
+Flower2
+Darkbrown Red Green Yellow
+00000
+00000
+00200
+00200
+00000
+
+Flower3
+Darkbrown Red Green Yellow
+00000
+00100
+00200
+00200
+00000
+
+Flower4
+Darkbrown Red Green Yellow
+00100
+01310
+00100
+00200
+00000
+
+Player
+Black
+.000.
+0...0
+0...0
+0...0
+.000.
+
+=======
+LEGEND
+=======
+. = Background
+# = Dirt
+P = Player
+
+=======
+SOUNDS
+=======
+
+================
+COLLISIONLAYERS
+================
+Background
+Dirt, Seed, Flower1, Flower2, Flower3, Flower4
+Player
+
+======
+RULES
+======
+[ Action Player Background ] -> [ Player Dirt ]
+[ Action Player Dirt ] -> [ Player Seed ]
+[ Action Player Flower4 ] -> [ Player Background ]
+[ > Player ] [ Flower3 ] -> [ > Player ] [ Flower4 ]
+[ > Player ] [ Flower2 ] -> [ > Player ] [ Flower3 ]
+[ > Player ] [ Flower1 ] -> [ > Player ] [ Flower2 ]
+[ > Player ] [ Seed ] -> [ > Player ] [ Flower1 ]
+
+
+
+
+==============
+WINCONDITIONS
+==============
+
+=======
+LEVELS
+=======
+...........
+...........
+...........
+...........
+...........
+.....P.....
+...........
+...........
+...........
+...........
+...........
