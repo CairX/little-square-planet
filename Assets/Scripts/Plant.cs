@@ -24,15 +24,22 @@ public class Plant : MonoBehaviour, ISave {
 
 	public delegate void Harvested(int worth);
 	public static event Harvested OnHarvest;
+	
+	public delegate void Cancelled(int worth);
+	public static event Cancelled OnCancel;
 
-	private void Awake() {
-		// TODO Can't be called from here because it takes money from the bank when loading a save.
+	public void Sow() {
 		if (OnPlant != null) OnPlant(Cost);
 	}
 
-	private void OnDestroy() {
-		// TODO Can't be called from here because it adds money to the bank when loading a save.
+	public void Harvest() {
 		if (OnHarvest != null) OnHarvest(Worth);
+		Destroy(gameObject);
+	}
+
+	public void Cancel() {
+		if (OnCancel != null) OnCancel(Cost);
+		Destroy(gameObject);
 	}
 
 	private void Start() {
@@ -71,6 +78,10 @@ public class Plant : MonoBehaviour, ISave {
 
 	public bool IsDone() {
 		return !_growing;
+	}
+
+	public string Countdown() {
+		return Mathf.Max(0, Time - _timer).ToString("F1");
 	}
 
 	public XmlNode Save() {
